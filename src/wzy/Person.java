@@ -93,6 +93,12 @@ public class Person {
         return uuid;
     }
 
+    public void setUuid(String uuid) {
+        if (this.uuid != null) {
+            this.uuid = uuid;
+        }
+    }
+
     public Person() {
         this.uuid = UUID.randomUUID().toString();
         this.name = "<空>";
