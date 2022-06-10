@@ -135,9 +135,11 @@ public class MainWindow extends JFrame {
 
     public static void main(String[] args) {
         File f = new File("data.json");
+        boolean isNew=false;
         if (!f.exists()) {
             try {
                 f.createNewFile();
+                isNew=true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -147,8 +149,10 @@ public class MainWindow extends JFrame {
         result = new Vector<>();
         try {
             BufferedReader r = new BufferedReader(new FileReader(f, StandardCharsets.UTF_8));
-            persons.addAll(JSON.parseArray(r.readLine(), Person.class));
-            result.addAll(persons);
+            if(r.readLine()!=null){
+                persons.addAll(JSON.parseArray(r.readLine(), Person.class));
+                result.addAll(persons);
+            }
         } catch (IOException err) {
             throw new RuntimeException(err);
         }
