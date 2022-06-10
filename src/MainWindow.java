@@ -46,7 +46,7 @@ public class MainWindow extends JFrame {
                 }
                 try {
                     System.out.println(JSON.toJSONString(persons));
-                    BufferedWriter w = new BufferedWriter(new FileWriter(f,StandardCharsets.UTF_8));
+                    BufferedWriter w = new BufferedWriter(new FileWriter(f, StandardCharsets.UTF_8));
                     w.write(JSON.toJSONString(persons));
                     w.flush();
                     w.close();
@@ -135,11 +135,11 @@ public class MainWindow extends JFrame {
 
     public static void main(String[] args) {
         File f = new File("data.json");
-        boolean isNew=false;
+        boolean isNew = false;
         if (!f.exists()) {
             try {
                 f.createNewFile();
-                isNew=true;
+                isNew = true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -147,12 +147,15 @@ public class MainWindow extends JFrame {
 
         persons = new Vector<>();
         result = new Vector<>();
+        StringBuilder data = new StringBuilder();
+        String line;
         try {
             BufferedReader r = new BufferedReader(new FileReader(f, StandardCharsets.UTF_8));
-            if(r.readLine()!=null){
-                persons.addAll(JSON.parseArray(r.readLine(), Person.class));
-                result.addAll(persons);
+            while ((line = r.readLine()) != null) {
+                data.append(line);
             }
+            persons.addAll(JSON.parseArray(data.toString(), Person.class));
+            result.addAll(persons);
         } catch (IOException err) {
             throw new RuntimeException(err);
         }
