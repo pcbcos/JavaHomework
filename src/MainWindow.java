@@ -135,11 +135,9 @@ public class MainWindow extends JFrame {
 
     public static void main(String[] args) {
         File f = new File("data.json");
-        boolean isNew = false;
         if (!f.exists()) {
             try {
                 f.createNewFile();
-                isNew = true;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
